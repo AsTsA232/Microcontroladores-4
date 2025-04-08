@@ -13,23 +13,20 @@ EXTI program:
 #include "timers.h"
 
 
-void EXTI_IRQHandler()
-{
-	if (EXTI->PR & (1 << 4)) {  
+void EXTI1_IRQHandler()
+{ 
         EXTI->PR |= (1 << 4);   
         motoruno1();
 				motoruno2();
-    }
-    
-    // Interrupción por PA2
-    if (EXTI->PR & (1 << 2)) {  
+   
+}
+void EXTI2_IRQHandler(){
+    // InterrupciÃ³n por PA2 
         EXTI->PR |= (1 << 2);   
       motordos1();
-			motordos2();
-    }
-
-	
+			motordos2();	
 }
+
 void ext_interrupt(void){
 	AFIO->EXTICR[0] = (1 << 0); //Selects PA1 for line 1
 	EXTI->FTSR |= (1 << 1);	//interrupt on falling edge
@@ -43,4 +40,5 @@ void ext_interrupt(void){
   NVIC->ISER[0] |= (1 << 7);     
   NVIC->ISER[0] |= (1 << 8);
 }
+
 
