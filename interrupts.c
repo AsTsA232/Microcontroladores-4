@@ -37,8 +37,6 @@ void ext_interrupt(void){
   EXTI->FTSR |= (1 << 2);        
   EXTI->IMR |= (1 << 2);         
 
-  NVIC->ISER[0] |= (1 << 7);     
-  NVIC->ISER[0] |= (1 << 8);
 }
 
 
