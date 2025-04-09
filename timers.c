@@ -14,10 +14,10 @@ void delay_timer2()
 void timer2_ch1_oc(void){
 	RCC->APB1ENR|= 1 << 0; //TIM2 clk enabled
 TIM2->PSC = 27;               // Valor del prescaler
-TIM2->ARR = 64284;             // Valor de comparación (autoreload)
+TIM2->ARR = 64284;             // Valor de comparaciÃ³n (autoreload)
 //TIM2->CCR1 = 3273;             // Ciclo de trabajo (duty cycle)
 TIM2->CCMR1 |= (1 << 6) | (1 << 5); // Modo PWM 1 en el canal 1
-TIM2->CCMR1 &= ~(1 << 4);      // Configuración correcta para PWM
+TIM2->CCMR1 &= ~(1 << 4);      // ConfiguraciÃ³n correcta para PWM
 TIM2->CCER |= (1 << 0);        // Habilitar salida del canal 1
 TIM2->CR1 |= (1 << 0); 
 }
@@ -27,7 +27,7 @@ void timer3_ch1_pwm(){
 
 	RCC->APB1ENR |= (1 << 1);	//TIM3 clk enabled
 	
-	TIM3->PSC=21;			//prescaler value
+	TIM3->PSC=27;			//prescaler value
 	TIM3->ARR=65453;	//Value to compare
 	//TIM3->CCR1 = 3273;	//Duty cicle 
 	TIM3->CCMR1 |= (1 << 6) | (1 << 5); //pwm mode1 ch1
@@ -36,7 +36,7 @@ void timer3_ch1_pwm(){
 	TIM3->CR1		|=	(1 << 0); //counter enabled
 	
 }
-//0°->90°->180°
+//0Â°->90Â°->180Â°
 void motoruno1(){
 		for (volatile int i = 0;i < 100;i++)
 			{
@@ -59,7 +59,7 @@ void motoruno1(){
 
 
 
-//180°->90°->0°
+//180Â°->90Â°->0Â°
 void motoruno2(){
 		for (volatile int i = 0;i < 100;i++)
 			{
@@ -84,7 +84,7 @@ void motoruno2(){
 
 	
 	
-//0°->90°->180°
+//0Â°->90Â°->180Â°
 	void motordos1(){
 		//SEGUNDO MOTOR TIMER 3
 	
@@ -109,7 +109,7 @@ void motoruno2(){
 
 
 	
-	//180°->90°->0°
+	//180Â°->90Â°->0Â°
 	void motordos2(){
 	for (volatile int i = 0;i < 100;i++)
 			{
@@ -130,4 +130,13 @@ void motoruno2(){
 			}
 		
 	}
+	
+	
+	void stoptim3(){
+		TIM3->CR1		|=	~(1 << 0);
+	}
+	void stoptim2(){
+		TIM2->CR1 |= ~(1 << 0);
+	}
+	
 	
