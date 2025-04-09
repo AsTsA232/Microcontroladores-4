@@ -1,30 +1,22 @@
-/*
-EXTI program:
-- Enable the clocks for GPIOs and AFIO.
-- Configure the Alternate Function to use a GPIO (usually standard after reset).
-- Configure the interrupt input pin as input using CRL and CRH registers.
-- Select the interrupt input pin using AFIO_EXTICR.
-- Configure the RTSR and FTSR registers to choose the interrupt edge.
-- Set the EXTI_IMR register to enable the interrupt for the line.
-- Enable the EXTI interrupt using the ISER register or NVIC_EnableIRQ function.
-- Clear the PR flag in the interrupt routine.
-*/
 #include <stm32f10x.h>
 #include "timers.h"
+#include "leds.h"
 
 
 void EXTI1_IRQHandler()
-{ 
+{ 			
         EXTI->PR |= (1 << 4);   
         motoruno1();
 				motoruno2();
-   
+				stoptim2();
 }
 void EXTI2_IRQHandler(){
+			
     // Interrupción por PA2 
-        EXTI->PR |= (1 << 2);   
+			EXTI->PR |= (1 << 2);   
       motordos1();
 			motordos2();	
+			stoptim3();
 }
 
 void ext_interrupt(void){
@@ -32,11 +24,13 @@ void ext_interrupt(void){
 	EXTI->FTSR |= (1 << 1);	//interrupt on falling edge
 	EXTI->IMR |= (1 << 1);	//enable interrupt
 	NVIC->ISER[0] |= 1 << 7;
-	
+}
+
+void ext_interrupt2(void){
 	AFIO->EXTICR[0] |= (1 << 8);   
   EXTI->FTSR |= (1 << 2);        
   EXTI->IMR |= (1 << 2);         
-
+  NVIC->ISER[0] |= (1 << 7);     
+  NVIC->ISER[0] |= (1 << 8);
 }
-
 
