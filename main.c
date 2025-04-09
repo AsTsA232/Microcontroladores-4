@@ -1,8 +1,3 @@
-/*GPIO functional description (p.158)
-Memory and bus architecture (p.46)
-
-*/
-
 //user defined libs
 #include "gpio.h"
 #include "leds.h"
@@ -21,13 +16,9 @@ int main(void){
 	timer3_ch1_pwm();
 		
 	ext_interrupt();
+	ext_interrupt2();
 	while(1){
-		//motoruno1();
-		//motordos1();
-		//motoruno2();
-		//motordos2();
-		//	
-		
+	
 		
 	}
 }
