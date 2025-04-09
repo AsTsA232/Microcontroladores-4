@@ -7,4 +7,6 @@
 	void motoruno2(void);
 	void motordos1(void);
 	void motordos2(void);
+	void stoptim3(void);
+	void stoptim2(void);
 #endif
